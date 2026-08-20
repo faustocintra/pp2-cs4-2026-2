@@ -11,3 +11,23 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+/*
+ O nome de um model no Prisma:
+ * deve iniciar com letra maiúscula
+ * deve estar no singular
+*/
+model Customer {
+ id             Int        @id @default(autoincrement())  // Chave primária, autoincremental
+ name           String               // Nome do cliente
+ ident_document String               // Documento de identidade (usaremos o CPF)
+ birth_date     DateTime?  @db.Date  // Data de nascimento (? = opcional)
+ street_name    String               // Nome da rua do endereço
+ house_number   String               // Número da casa
+ complements    String?              // Complemento do endereço (opcional)
+ district       String               // Bairro
+ municipality   String               // Município
+ state          String   @db.Char(2) // UF
+ phone          String               // Telefone/celular
+ email          String               // E-mail
+}
