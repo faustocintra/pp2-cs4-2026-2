@@ -1,12 +1,12 @@
-import { prisma } from "../database/client.ts";
+import { prisma } from "../database/client.js";
 
 
 import type { CreateCustomerDto }
- from "../dto/customer/createCustomerDto.ts";
+ from "../dto/customer/createCustomerDto.js";
 
 
 import type { UpdateCustomerDto }
- from "../dto/customer/updateCustomerDto.ts";
+ from "../dto/customer/updateCustomerDto.js";
 
 
 export function findAll() {
