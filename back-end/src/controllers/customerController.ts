@@ -5,11 +5,11 @@ import type {
 } from "express";
 
 
-import * as service from "../services/customerService.ts";
+import * as service from "../services/customerService";
 
 
 import type { CreateCustomerDto } from "../dto/customer/createCustomerDto.ts";
-import type { UpdateCustomerDto } from "../dto/customer/updateCustomerDto.ts";
+import type { UpdateCustomerDto } from "../dto/customer/updateCustumerDto";
 
 
 type CustomerIdParams = {

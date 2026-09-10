@@ -64,3 +64,5 @@ jspm_packages/
 !.yarn/versions
 
 /generated/prisma
+
+/generated/prisma
