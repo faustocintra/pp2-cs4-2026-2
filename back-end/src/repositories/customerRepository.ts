@@ -26,11 +26,13 @@ export function findById(id: number) {
 
 
 export function create(data: CreateCustomerDto) {
- return prisma.customer.create({
-   data,
- });
+  return prisma.customer.create({
+    data: {
+      ...data,
+      birth_date: data.birth_date ? new Date(data.birth_date) : null
+    }
+  });
 }
-
 
 export function update(
  id: number,
@@ -38,7 +40,10 @@ export function update(
 ) {
  return prisma.customer.update({
    where: { id },
-   data,
+   data: {
+    ...data,
+    birth_date: data.birth_date ? new Date(data.birth_date) : null
+   },
  });
 }
 
