@@ -26,20 +26,34 @@ export function findById(id: number) {
 
 
 export function create(data: CreateCustomerDto) {
- return prisma.customer.create({
-   data,
- });
+  return prisma.customer.create({
+    data: {
+      ...data,
+      birth_date: data.birth_date
+        ? new Date(data.birth_date as unknown as string)
+        : undefined,
+    },
+  });
 }
 
 
 export function update(
- id: number,
- data: UpdateCustomerDto
+  id: number,
+  data: UpdateCustomerDto
 ) {
- return prisma.customer.update({
-   where: { id },
-   data,
- });
+  return prisma.customer.update({
+    where: { id },
+    data: {
+      ...data,
+      ...(data.birth_date !== undefined
+        ? {
+            birth_date: data.birth_date
+              ? new Date(data.birth_date as unknown as string)
+              : null,
+          }
+        : {}),
+    },
+  });
 }
 
 
