@@ -30,7 +30,7 @@ const prisma = new PrismaClient({
 
 
 // Esta são as instruções que mostrarão no terminal todas
-// as instruções SQL geradas pelo Prisma
+// as instruções SQL geradas pelo Prisma.
 prisma.$on("query", (e) => {
  console.log("---");
  console.log("Query: " + e.query);
