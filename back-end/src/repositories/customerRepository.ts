@@ -42,7 +42,7 @@ export function update(
    where: { id },
    data: {
     ...data,
-    birth_date: data.birth_date ? new Date(data.birth_date) : null
+    birth_date: data.birth_date ? new Date(data.birth_date) : data.birth_date
    },
  });
 }
