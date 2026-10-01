@@ -7,7 +7,8 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "ignoreDeprecations": "6.0",
+    //"ignoreDeprecations": "6.0",
+    "rewriteRelativeImportExtensions": true,
     "skipLibCheck": true
   }
 }

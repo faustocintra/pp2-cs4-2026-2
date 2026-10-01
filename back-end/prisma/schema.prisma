@@ -12,25 +12,43 @@ datasource db {
   provider = "postgresql"
 }
 
-/*
-  O nome de um model no Prisma:
-  * deve iniciar com letra maiúscula
-  * deve estar no singular
-*/
-
-// (...código existente...)
+/**
+ * O nome de um model no Prisma:
+ * deve iniciar com letra maiúscula
+ * deve estar no singular
+ */
 
 model Customer {
-  id             Int        @id @default(autoincrement())  // Chave primária, autoincremental
-  name           String               // Nome do cliente
-  ident_document String     @unique   // Documento de identidade (usaremos o CPF)
-  birth_date     DateTime?  @db.Date  // Data de nascimento (? = opcional)
-  street_name    String               // Nome da rua do endereço
-  house_number   String               // Número da casa
-  complements    String?              // Complemento do endereço (opcional)
-  district       String               // Bairro
-  municipality   String               // Município
-  state          String     @db.Char(2) // UF
-  phone          String               // Telefone/celular
-  email          String     @unique   // E-mail
+  id              Int       @id @default(autoincrement()) // Chave primária, autoincremental
+  name            String    // Nome do cliente
+  ident_document  String    @unique // Documento de identidade (usaremos o CPF)
+  birth_date      DateTime? @db.Date // Data de nascimento (? = opcional)
+  street_name     String    // Nome da rua do endereço
+  house_number    String    // Número da casa
+  complements     String?   // Complemento do endereço (opcional)
+  district        String    // Bairro
+  municipality    String    // Município
+  state           String    @db.Char(2) // UF
+  phone           String    // Telefone/celular
+  email           String    @unique // E-mail
+
+  cars            Car[]     // Relação de carros pertencentes ao cliente
+}
+
+model Car {
+  id               Int      @id @default(autoincrement())  // Chave primária
+  brand            String   // Marca
+  model            String   // Modelo
+  color            String   // Cor
+  year_manufacture Int      // Ano de fabricação
+  imported         Boolean  // É importado?
+  plates           String   // Placas
+  selling_date     DateTime?  // Data de venda
+  selling_price    Decimal?   // Preço de venda
+
+  // Chave estrangeira opcional
+  customer_id      Int?
+
+  // Relacionamento com o cliente
+  customer Customer? @relation(fields: [customer_id], references: [id])
 }
