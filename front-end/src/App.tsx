@@ -1,6 +1,7 @@
 import { CustomersList } from './components/CustomersList'
 import { customers } from './data/customers'
 
+
 function App() {
  return (
    <>
@@ -24,3 +25,4 @@ function App() {
 
 
 export default App
+
