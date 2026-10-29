@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Customer } from '../types/Customer'
 
 
@@ -7,7 +8,8 @@ type CustomerListProps = {
 
 
 export function CustomersList({ list = [] }: CustomerListProps) {
- return (
+ const [customers, setCustomers] = useState([])
+  return (
    <>
 
 
