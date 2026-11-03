@@ -76,6 +76,8 @@ export function CustomersList() {
   
   return (
    <>
+     <h2 className="h2 mb-3">Listagem de Clientes</h2>
+
 
 
      <p className="text-secondary">
