@@ -1,6 +1,7 @@
 import { BrowserRouter, NavLink, Routes, Route } from 'react-router'
-import { CustomersList } from './components/CustomersList'
 import { HomePage } from './components/HomePage'
+import { CustomersList } from './components/CustomersList'
+import { CustomersForm } from './components/CustomersForm'
 import { CarsList } from './components/CarsList'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
        <Routes>
          <Route path="/" element={< HomePage />} />
          <Route path="/customers" element={<CustomersList />} />
+         <Route path="/customers/:id" element={<CustomersForm />} />
          <Route path="/cars" element={<CarsList />} />
        </Routes>
      </main>
