@@ -1,4 +1,4 @@
-import type { Customer } from '../types/Customer'
+import type { Customer } from '../types/Customers'
 
 
 export const customers: Customer[] = [

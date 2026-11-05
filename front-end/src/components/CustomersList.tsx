@@ -1,31 +1,44 @@
-import { useState } from "react";
-import type { Customer } from "../types/Customer";
+import { useEffect, useState } from 'react'
+import type { Customer } from '../types/Customers'
 
 export function CustomersList() {
-  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([])
 
-  async function fetchData() {
-    const apiHost = import.meta.env.VITE_API_BASE;
+  useEffect(() => {
+    const controller = new AbortController()
 
-    try {
-      const response = await fetch(`${apiHost}/customers`);
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8899/customers', {
+          signal: controller.signal,
+        })
 
-      if (!response.ok) {
-        throw new Error(`Erro HTTP ${response.status}`);
-      }
+        if (!response.ok) {
+          throw new Error('Failed to fetch')
+        }
 
-      const data: Customer[] = await response.json();
-      setCustomers(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        window.alert("ERRO: " + error.message);
+        const data: Customer[] = await response.json()
+        setCustomers(data)
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return
+        }
+
+        const message = error instanceof Error ? error.message : String(error)
+        window.alert(`ERRO: ${message}`)
       }
     }
-  }
+
+    void fetchData()
+
+    return () => controller.abort()
+  }, [])
 
   return (
     <>
-      <p className="text-secondary">Total de clientes: {customers.length}</p>
+      <p className="text-secondary">
+        Total de clientes: {customers.length}
+      </p>
 
       <div className="table-responsive">
         <table className="table table-striped table-hover align-middle">
@@ -65,5 +78,5 @@ export function CustomersList() {
         </table>
       </div>
     </>
-  );
+  )
 }
