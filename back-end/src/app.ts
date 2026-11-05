@@ -6,7 +6,13 @@ import indexRouter from './routes/index'
 import usersRouter from './routes/users'
 import customersRouter from './routes/customers'
 
+import cors from 'cors'
+
 const app = express()
+
+app.use(cors({
+ origin: process.env.ALLOWED_ORIGINS.split(','),
+}))
 
 app.use(logger('dev'))
 app.use(json())

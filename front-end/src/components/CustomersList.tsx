@@ -1,13 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Customer } from '../types/Customer'
 
 
-type CustomerListProps = {
- list?: Customer[]
+type CustomercustomersProps = {
+ customers?: Customer[]
 }
 
 
-export function CustomersList() {
+export function Customerscustomers() {
 
     const [customers, setCustomers] = useState<Customer[]>([])
 
@@ -61,12 +61,21 @@ export function CustomersList() {
        window.alert('ERRO: ' + error.message)
      }
    }
- }
+ };
+
+  // Hook useEffect()
+ // UM DETALHE EXTREMAMENTE IMPORTANTE é o vetor vazio ([]) no
+ // segundo parâmetro. Ele é chamado VETOR DE DEPENDÊNCIAS. O vetor
+ // vazio, neste caso, indica que o useEffect() deverá ser
+ // executado apenas uma vez, quando o componente estiver sendo
+ // carregado na tela, para chamar fetchData().
+ useEffect(() => fetchData(), [])
+
     
  return (
     <>
    <p className="text-secondary">
-     Total de clientes: {list.length}
+     Total de clientes: {customers.length}
    </p>
 
    <div className="table-responsive">
@@ -85,20 +94,20 @@ export function CustomersList() {
 
 
          <tbody>
-           {list.map(list => (
-             <tr key={list.id}>
-               <td>{list.id}</td>
-               <td>{list.name}</td>
-               <td>{list.ident_document}</td>
-               <td>{list.email}</td>
-               <td>{list.phone}</td>
-               <td>{list.municipality}</td>
-               <td>{list.state}</td>
+           {customers.map(customers => (
+             <tr key={customers.id}>
+               <td>{customers.id}</td>
+               <td>{customers.name}</td>
+               <td>{customers.ident_document}</td>
+               <td>{customers.email}</td>
+               <td>{customers.phone}</td>
+               <td>{customers.municipality}</td>
+               <td>{customers.state}</td>
              </tr>
            ))}
 
 
-           {list.length === 0 && (
+           {customers.length === 0 && (
              <tr>
                <td colSpan={7} className="text-center text-secondary">
                  Nenhum cliente cadastrado.
