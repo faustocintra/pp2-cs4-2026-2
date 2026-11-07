@@ -25,4 +25,24 @@ model Customer {
   state          String    @db.Char(2)
   phone          String
   email          String    @unique
+
+  cars           Car[]     // Relação de carros pertencentes ao cliente
+}
+
+model Car {
+  id               Int       @id @default(autoincrement())
+  brand            String    // Marca
+  model            String    // Modelo
+  color            String    // Cor
+  year_manufacture Int       // Ano de fabricação
+  imported         Boolean   // É importado?
+  plates           String    // Placas
+  selling_date     DateTime? // Data de venda
+  selling_price    Decimal?  // Preço de venda
+
+  // Chave estrangeira opcional
+  customer_id      Int?
+
+  // Relacionamento com o cliente
+  customer         Customer? @relation(fields: [customer_id], references: [id])
 }

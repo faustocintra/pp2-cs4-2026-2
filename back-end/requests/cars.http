@@ -1,0 +1,61 @@
+### Veículo sem cliente associado — aula de 02/10
+POST http://localhost:8888/cars
+Content-Type: application/json
+
+{
+  "brand": "Toyota",
+  "model": "Corolla XEi 2.0",
+  "color": "Prata",
+  "year_manufacture": 2022,
+  "imported": false,
+  "plates": "ABC1D23"
+}
+
+### Veículo vendido (substitua customer_id por um id existente em GET /customers)
+POST http://localhost:8888/cars
+Content-Type: application/json
+
+{
+  "brand": "Chevrolet",
+  "model": "Onix LT 1.0",
+  "color": "Branco",
+  "year_manufacture": 2023,
+  "imported": false,
+  "plates": "EFG4H56",
+  "selling_date": "2026-09-20T00:00:00Z",
+  "selling_price": 72900.00,
+  "customer_id": 1
+}
+
+### Veículo ainda disponível
+POST http://localhost:8888/cars
+Content-Type: application/json
+
+{
+  "brand": "Volvo",
+  "model": "XC60 T8",
+  "color": "Azul",
+  "year_manufacture": 2023,
+  "imported": true,
+  "plates": "QRS5T67",
+  "selling_date": null,
+  "selling_price": null,
+  "customer_id": null
+}
+
+### Listar veículos
+GET http://localhost:8888/cars
+
+### Consultar um veículo
+GET http://localhost:8888/cars/1
+
+### Atualizar um veículo
+PUT http://localhost:8888/cars/1
+Content-Type: application/json
+
+{
+  "color": "Preto"
+}
+
+### Excluir um veículo (escolha um que ainda não foi vendido)
+DELETE http://localhost:8888/cars/1

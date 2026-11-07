@@ -14,6 +14,12 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
         .json({ message: 'Documento de identidade ou e-mail já cadastrado.' })
       return
     }
+    if (error.code === 'P2003') {
+      res
+        .status(400)
+        .json({ message: 'Registro relacionado inexistente (customer_id não corresponde a um cliente).' })
+      return
+    }
     if (error.code === 'P2025') {
       res.status(404).json({ message: 'Customer não encontrado.' })
       return
