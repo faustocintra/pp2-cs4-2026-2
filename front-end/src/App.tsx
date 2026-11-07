@@ -3,6 +3,7 @@ import { Homepage } from './components/Homepage'
 import { CustomersList } from './components/CustomersList'
 import { CustomersForm } from './components/CustomersForm'
 import { CarsList } from './components/CarsList'
+import { CarsForm } from './components/CarsForm'
 
 
 function App() {
@@ -50,7 +51,8 @@ function App() {
 
 
           <Route path="/cars" element={<CarsList />} />
-          
+          <Route path="/cars/:id" element={<CarsForm />} />
+
        </Routes>
      </main>
    </BrowserRouter>
