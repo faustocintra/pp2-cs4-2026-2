@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 
-const API_URL = `${import.meta.env.VITE_API_BASE ?? ''}/customers`
+const API_URL = `${import.meta.env.VITE_API_BASE ?? '/api'}/customers`
 
 
 // Inputs controlados recebem strings, inclusive os campos opcionais.
@@ -197,8 +197,8 @@ export function CustomersForm() {
 
 
      // A URI invocada também muda de acordo com a situação:
-     // Novo cliente: http://localhost:8888/customers
-     // Cliente existente: http://localhost:8888/customers/X, onde X é o id do cliente
+     // Novo cliente: /api/customers
+     // Cliente existente: /api/customers/X, onde X é o id do cliente
      const uri = isNew ? API_URL : `${API_URL}/${id}`
 
 

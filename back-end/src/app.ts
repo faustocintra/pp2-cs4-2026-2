@@ -7,6 +7,7 @@ import indexRouter from './routes/index'
 import usersRouter from './routes/users'
 import customersRouter from './routes/customers'
 import carsRouter from './routes/cars'
+import { errorHandler } from './errors/errorHandler'
 
 import cors from 'cors'
 
@@ -35,6 +36,9 @@ app.use('/users', usersRouter)
 
 app.use('/customers', customersRouter)
 app.use('/cars', carsRouter)
+app.use('/api/customers', customersRouter)
+app.use('/api/cars', carsRouter)
 
+app.use(errorHandler)
 
 export default app
