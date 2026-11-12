@@ -53,7 +53,7 @@ async function getErrorMessage(response: Response) {
 export function CarsForm() {
  const { id } = useParams()
  const navigate = useNavigate()
- const isNew = id === 'new'
+ const isNew = !id || id === 'new'
 
 
  const [car, setCar] = useState({ ...formDefaults })
