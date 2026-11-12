@@ -1,5 +1,7 @@
 import { BrowserRouter, NavLink, Routes, Route } from "react-router";
+import { Homepage } from "./components/Homepage";
 import { CustomersList } from "./components/CustomersList";
+import { CarsList } from "./components/CarsList";
 
 function App() {
   return (
@@ -26,33 +28,23 @@ function App() {
                 Clientes
               </NavLink>
             </li>
+
+            <li className="nav-item">
+              <NavLink to="/cars" className="nav-link">
+                Veículos
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
 
       <main className="container py-4">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <h2 className="h5 mb-3">Início</h2>
-                <p>Selecione uma opção no menu de navegação.</p>
-              </>
-            }
-          />
+          <Route path="/" element={<Homepage />} />
 
-          <Route
-            path="/customers"
-            element={
-              <>
-                <h2 className="h5 mb-3">Clientes</h2>
-                <div className="text-secondary">
-                  <CustomersList />
-                </div>
-              </>
-            }
-          />
+          <Route path="/customers" element={<CustomersList />} />
+
+          <Route path="/cars" element={<CarsList />} />
         </Routes>
       </main>
     </BrowserRouter>
