@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react'
 import type { Customer } from '../types/Customer'
 import { Link } from 'react-router'
 
-type CustomerProps = {
-  customer?: Customer[]
-}
 
 
 export function CustomersList() {
