@@ -9,6 +9,13 @@ export function findAll() {
     orderBy: {
       brand: "asc",
     },
+    include: {
+      customer: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 }
 
