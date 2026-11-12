@@ -1,23 +1,61 @@
+import { BrowserRouter, NavLink, Routes, Route } from "react-router";
 import { CustomersList } from "./components/CustomersList";
-import { customers } from "./data/Customer";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <header className="bg-dark text-white py-3">
         <div className="container">
-          <h1 className="h4 mb-0">Cadastro de clientes</h1>
+          <h1 className="h4 mb-0">
+            Karangos &bull; boutique de carros antigos
+          </h1>
         </div>
       </header>
 
+      <nav className="bg-light border-bottom py-2">
+        <div className="container">
+          <ul className="nav nav-pills">
+            <li className="nav-item">
+              <NavLink to="/" className="nav-link" end>
+                Início
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink to="/customers" className="nav-link">
+                Clientes
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
       <main className="container py-4">
-        <h2 className="h5 mb-3">Clientes</h2>
-        <p className="text-secondary">
-          A listagem de clientes será exibida aqui.
-          <CustomersList list={customers} />
-        </p>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <h2 className="h5 mb-3">Início</h2>
+                <p>Selecione uma opção no menu de navegação.</p>
+              </>
+            }
+          />
+
+          <Route
+            path="/customers"
+            element={
+              <>
+                <h2 className="h5 mb-3">Clientes</h2>
+                <div className="text-secondary">
+                  <CustomersList />
+                </div>
+              </>
+            }
+          />
+        </Routes>
       </main>
-    </>
+    </BrowserRouter>
   );
 }
 
