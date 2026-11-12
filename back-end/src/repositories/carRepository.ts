@@ -9,44 +9,60 @@ import type { UpdateCarDto }
  from "../dto/car/updateCarDto.ts";
 
 
-export function findAll() {
- return prisma.car.findMany({
-   orderBy: {
-     brand: "asc",
-   },
- });
+export async function findAll() {
+  const cars = await prisma.car.findMany({
+    orderBy: {
+      brand: "asc",
+    },
+  });
+  return cars.map((car) => ({
+    ...car,
+    selling_date: car.selling_date ? car.selling_date.toISOString() : null,
+    selling_price: car.selling_price ? Number(car.selling_price) : null,
+  }));
 }
 
 
-export function findById(id: number) {
- return prisma.car.findUnique({
-   where: { id },
- });
+export async function findById(id: number) {
+  const car = await prisma.car.findUnique({
+    where: { id },
+  });
+  if (!car) return car;
+  return {
+    ...car,
+    selling_date: car.selling_date ? car.selling_date.toISOString() : null,
+    selling_price: car.selling_price ? Number(car.selling_price) : null,
+  };
 }
 
 
-export function create(data: CreateCarDto) {
- return prisma.car.create({
-   data: {
-     ...data,
-     // O body chega como string (JSON), então convertemos para Date
-     selling_date: data.selling_date
-       ? new Date(data.selling_date as unknown as string)
-       : null,
-     // selling_price é Decimal: o Prisma aceita number ou string direto
-     selling_price: data.selling_price ?? null,
-     // Ausente = não enviado, o banco usa o padrão (NULL)
-     customer_id: data.customer_id ?? undefined,
-   },
- });
+export async function create(data: CreateCarDto) {
+  const car = await prisma.car.create({
+    data: {
+      ...data,
+      // O body chega como string (JSON), então convertemos para Date
+      selling_date: data.selling_date
+        ? new Date(data.selling_date as unknown as string)
+        : null,
+      // selling_price é Decimal: o Prisma aceita number ou string direto
+      selling_price: data.selling_price ?? null,
+      // Ausente = não enviado, o banco usa o padrão (NULL)
+      customer_id: data.customer_id ?? undefined,
+    },
+  });
+  return {
+    ...car,
+    selling_date: car.selling_date ? car.selling_date.toISOString() : null,
+    selling_price: car.selling_price ? Number(car.selling_price) : null,
+  };
 }
 
 
-export function update(
+export async function update(
   id: number,
   data: UpdateCarDto
 ) {
-  return prisma.car.update({
+  const car = await prisma.car.update({
     where: { id },
     data: {
       ...data,
@@ -66,6 +82,11 @@ export function update(
         : {}),
     },
   });
+  return {
+    ...car,
+    selling_date: car.selling_date ? car.selling_date.toISOString() : null,
+    selling_price: car.selling_price ? Number(car.selling_price) : null,
+  };
 }
 
 
