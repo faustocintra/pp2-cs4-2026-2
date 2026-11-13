@@ -1,4 +1,3 @@
-
 export function Homepage() {
  return (
    <>
@@ -16,4 +15,3 @@ export function Homepage() {
    </>
  )
 }
-

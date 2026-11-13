@@ -1,18 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Customer } from '../types/Customer'
 import { Link } from 'react-router'
 
 
 
-type CustomerListProps = {
- list?: Customer[]
-}
-
-
 export function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([])
-  
-  
   // Esta função está marcada com `async` porque, dentro dela,
  // há uma ou mais instruções assíncronas, isto é, que podem
  // ser executadas fora da ordem esperada, devido, por exemplo,
@@ -64,30 +57,21 @@ export function CustomersList() {
      }
    }
  }
-
-
-
  // Hook useEffect()
  // UM DETALHE EXTREMAMENTE IMPORTANTE é o vetor vazio ([]) no
  // segundo parâmetro. Ele é chamado VETOR DE DEPENDÊNCIAS. O vetor
  // vazio, neste caso, indica que o useEffect() deverá ser
  // executado apenas uma vez, quando o componente estiver sendo
  // carregado na tela, para chamar fetchData().
- useEffect(() => fetchData(), [])
+  useEffect(() => {fetchData()}, [])
 
-  
-  return (
-   <>
-     <h2 className="h2 mb-3">Listagem de Clientes</h2>
-
-
-
-     <p className="text-secondary">
-       Total de clientes: {customers.length}
-     </p>
-
-
-     <div className="text-end mb-3">
+ return (
+    <>
+    <h2 className="h2 mb-3">customeragem de Clientes</h2>
+   <p className="text-secondary">
+     Total de clientes: {customers.length}
+   </p>
+        <div className="text-end mb-3">
        <Link
          to={`/customers/new`}
          className="btn btn-outline-primary"
@@ -96,9 +80,7 @@ export function CustomersList() {
        </Link>
      </div>
 
-
-
-     <div className="table-responsive">
+    <div className="table-responsive">
        <table className="table table-striped table-hover align-middle">
          <thead className="table-dark">
            <tr>
@@ -109,22 +91,21 @@ export function CustomersList() {
              <th scope="col">Telefone</th>
              <th scope="col">Município</th>
              <th scope="col">UF</th>
-             <th scope="col" className="text-end">Ações</th>
-
+              <th scope="col" className="text-end">Ações</th>
            </tr>
          </thead>
 
 
          <tbody>
-           {customers.map(list => (
-             <tr key={list.id}>
-               <td>{list.id}</td>
-               <td>{list.name}</td>
-               <td>{list.ident_document}</td>
-               <td>{list.email}</td>
-               <td>{list.phone}</td>
-               <td>{list.municipality}</td>
-               <td>{list.state}</td>
+           {customers.map(customer => (
+             <tr key={customer.id}>
+               <td>{customer.id}</td>
+               <td>{customer.name}</td>
+               <td>{customer.ident_document}</td>
+               <td>{customer.email}</td>
+               <td>{customer.phone}</td>
+               <td>{customer.municipality}</td>
+               <td>{customer.state}</td>
                <td className="text-end">
                  <Link
                    to={`/customers/${customer.id}`}
@@ -150,5 +131,6 @@ export function CustomersList() {
        </table>
      </div>
    </>
+
  )
 }
