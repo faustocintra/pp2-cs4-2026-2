@@ -14,6 +14,7 @@ export async function findAll() {
     orderBy: {
       brand: "asc",
     },
+    include: { customer: { select: { id: true, name: true } } },
   });
   return cars.map((car) => ({
     ...car,

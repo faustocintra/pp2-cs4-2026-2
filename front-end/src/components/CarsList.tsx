@@ -53,6 +53,7 @@ export function CarsList() {
               <th scope="col">Ano</th>
               <th scope="col">Placas</th>
               <th scope="col">Importado</th>
+              <th scope="col">Cliente</th>
               <th scope="col" className="text-end">Ações</th>
             </tr>
           </thead>
@@ -67,6 +68,7 @@ export function CarsList() {
                 <td>{car.year_manufacture}</td>
                 <td>{car.plates}</td>
                 <td>{car.imported ? 'Sim' : 'Não'}</td>
+                <td>{car.customer ? `${car.customer.id} - ${car.customer.name}` : '—'}</td>
                 <td className="text-end">
                   <Link
                     to={`/cars/${car.id}`}
@@ -81,7 +83,7 @@ export function CarsList() {
 
             {cars.length === 0 && (
               <tr>
-                <td colSpan={8} className="text-center text-secondary">
+                <td colSpan={9} className="text-center text-secondary">
                   Nenhum veículo cadastrado.
                 </td>
               </tr>

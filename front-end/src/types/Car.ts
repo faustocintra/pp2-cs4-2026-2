@@ -9,4 +9,5 @@ export type Car = {
  selling_date: string | null
  selling_price: number | null
  customer_id: number | null
+ customer: { id: number; name: string } | null
 }
