@@ -1,13 +1,16 @@
-import { prisma } from "../database/client.ts";
+import { prisma } from "../database/client";
 
-import type { CreateCarDto } from "../dto/car/createCarDto.ts";
-
-import type { UpdateCarDto } from "../dto/car/updateCarDto.ts";
+// Importe os DTOs corretos para carros quando criá-los
+import type { CreateCarDto } from "../dto/car/createCarDto";
+import type { UpdateCarDto } from "../dto/car/updateCarDto";
 
 export function findAll() {
   return prisma.car.findMany({
     orderBy: {
-      model: "asc",
+      brand: "asc",
+    },
+    include: {
+      customer: true,
     },
   });
 }
@@ -15,11 +18,14 @@ export function findAll() {
 export function findById(id: number) {
   return prisma.car.findUnique({
     where: { id },
+    include: { customer: true },
   });
 }
 
 export function create(data: CreateCarDto) {
-  return prisma.car.create({ data });
+  return prisma.car.create({
+    data,
+  });
 }
 
 export function update(id: number, data: UpdateCarDto) {
