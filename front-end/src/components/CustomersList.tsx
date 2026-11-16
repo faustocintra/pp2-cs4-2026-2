@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import type { Customer } from "../types/Customer";
 import { Link } from "react-router";
 
-type CustomerListProps = {
-  list?: Customer[];
-};
-
 export function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
@@ -79,7 +75,7 @@ export function CustomersList() {
       <div className="table-responsive">
         <table className="table table-striped table-hover align-middle">
           <thead className="table-dark">
-            <tr>
+            <tr className="text-center">
               <th scope="col">Código</th>
               <th scope="col">Nome</th>
               <th scope="col">CPF</th>
@@ -95,7 +91,7 @@ export function CustomersList() {
 
           <tbody>
             {customers.map((customer) => (
-              <tr key={customer.id}>
+              <tr className="text-center" key={customer.id}>
                 <td>{customer.id}</td>
                 <td>{customer.name}</td>
                 <td>{customer.ident_document}</td>
