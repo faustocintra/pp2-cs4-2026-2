@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 
-const API_URL = `${import.meta.env.VITE_API_BASE ?? '/api'}/customers`
+const API_URL = `${import.meta.env.VITE_API_BASE || '/api'}/customers`
 
 
 // Inputs controlados recebem strings, inclusive os campos opcionais.

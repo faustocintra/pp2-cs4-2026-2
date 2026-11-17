@@ -12,7 +12,7 @@ export function CustomersList() {
 
     async function fetchCustomers() {
       try {
-        const apiBase = import.meta.env.VITE_API_BASE ?? '/api'
+        const apiBase = import.meta.env.VITE_API_BASE || '/api'
         const response = await fetch(`${apiBase}/customers`, {
           signal: controller.signal,
         })
@@ -88,13 +88,20 @@ export function CustomersList() {
                 <td>{customer.phone}</td>
                 <td>{customer.municipality}</td>
                 <td>{customer.state}</td>
-                
+                <td className="text-end">
+                  <Link
+                    to={`/customers/${customer.id}`}
+                    className="btn btn-sm btn-outline-secondary"
+                  >
+                    Editar
+                  </Link>
+                </td>
               </tr>
             ))}
 
             {!loading && !error && customers.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center text-secondary">
+                <td colSpan={8} className="text-center text-secondary">
                   Nenhum cliente cadastrado.
                 </td>
               </tr>

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import type { Customer } from '../types/Customer'
 
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? '/api'
+const API_BASE = import.meta.env.VITE_API_BASE || '/api'
 const API_URL = `${API_BASE}/cars`
 const MAX_MANUFACTURE_YEAR = new Date().getFullYear() + 1
 
