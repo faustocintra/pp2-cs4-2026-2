@@ -58,7 +58,14 @@ function App() {
          
        </Routes>
      </main>
-   </BrowserRouter>
+   <footer className="fixed-bottom bg-light border-top py-2 text-center">
+      <div className="container">
+        <p className="small mb-0">
+          Desenvolvido por <a href="mailto:feligavime@gmail.com">Felipe Gabriel Vieira Meira </a> | 4º semestre Ciência da Computação 2026/2
+        </p>
+      </div>
+    </footer>
+  </BrowserRouter>
  )
 }
 
