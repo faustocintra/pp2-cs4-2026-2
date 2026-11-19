@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import type { Car } from '../types/Cars'
+import type { Car } from '../types/Car'
 import type { Customer } from '../types/Customer'
 import { Link } from 'react-router'
 
