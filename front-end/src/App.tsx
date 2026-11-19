@@ -55,7 +55,15 @@ function App() {
 
        </Routes>
      </main>
+          <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:marinanevesa@gmail.com">MARINA NEVES ANDRADE</a> | 4º semestre Sistemas de Informação 2026/2
+         </p>
+       </div>
+     </footer>
    </BrowserRouter>
+   
  )
 }
 
