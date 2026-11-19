@@ -8,6 +8,7 @@ import { CarsForm } from './components/CarsForm'
 
 function App() {
  return (
+   <>
    <BrowserRouter>
      <header className="bg-dark text-white py-3">
        <div className="container">
@@ -58,6 +59,15 @@ function App() {
 
      </main>
    </BrowserRouter>
+   <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:gabrielltozati@gmail.com">GABRIEL LETRO TOZATI</a> | 4º semestre Ciência da Computação 2026/2
+         </p>
+       </div>
+     </footer>
+   </>
+ 
  )
 }
 
