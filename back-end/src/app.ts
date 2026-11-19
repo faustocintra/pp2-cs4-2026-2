@@ -5,6 +5,7 @@ import logger from "morgan";
 import indexRouter from "./router/index";
 import usersRouter from "./router/users";
 import customersRouter from "./router/customers";
+import carsRouter from "./router/cars";        
 
 import cors from 'cors'
 
@@ -25,5 +26,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.use("/customers", customersRouter);
+app.use("/cars", carsRouter);
 
 export default app;
