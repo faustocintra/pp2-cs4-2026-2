@@ -3,11 +3,13 @@ import { Homepage } from './components/Homepage'
 import { CustomersList } from './components/CustomersList'
 import { CustomersForm } from './components/CustomersForm'
 import { CarsList } from './components/CarsList'
+import { CarsForm } from './components/CarsForm'
 
 
 function App() {
  return (
-   <BrowserRouter>
+  <>
+  <BrowserRouter>
      <header className="bg-dark text-white py-3">
        <div className="container">
          <h1 className="h4 mb-0">Karangos &bull; boutique de carros antigos</h1>
@@ -52,9 +54,20 @@ function App() {
 
 
          <Route path="/cars" element={<CarsList />} />
+         <Route path="/cars/:id" element={<CarsForm />} />
        </Routes>
      </main>
    </BrowserRouter>
+    <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:glaubermacario2003@gmail.com">Glauber Macario Alves Peixoto</a> | 4º semestre Ciência da Computação 2026/2
+         </p>
+       </div>
+     </footer>
+  </>
+   
+
  )
 }
 

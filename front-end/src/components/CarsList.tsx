@@ -35,27 +35,6 @@ export function CarsList() {
     }
   }
 
-  async function handleDelete(car: Car) {
-    const confirmed = window.confirm(
-      `Deseja realmente excluir o veículo ${car.brand} ${car.model} (${car.plates})?`
-    )
-    if (!confirmed) return
-
-    try {
-      const response = await fetch(`${API_BASE}/cars/${car.id}`, {
-        method: 'DELETE',
-      })
-      if (!response.ok) {
-        throw new Error(`Erro HTTP ${response.status}`)
-      }
-      setCars(previous => previous.filter(item => item.id !== car.id))
-    } catch (error) {
-      if (error instanceof Error) {
-        window.alert('Não foi possível excluir o veículo. ' + error.message)
-      }
-    }
-  }
-
   useEffect(() => {
     fetchData()
   }, [])
@@ -111,14 +90,6 @@ export function CarsList() {
                   >
                     Editar
                   </Link>
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-sm"
-                    onClick={() => handleDelete(car)}
-                    aria-label={`Excluir veículo ${car.brand} ${car.model}`}
-                  >
-                    Excluir
-                  </button>
                 </td>
               </tr>
             ))}
