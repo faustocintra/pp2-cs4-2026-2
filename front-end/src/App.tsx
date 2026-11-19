@@ -7,6 +7,7 @@ import { CarsForm } from "./components/CarsForm";
 
 function App() {
   return (
+    <>
     <BrowserRouter>
       <header className="bg-dark text-white py-3">
         <div className="container">
@@ -40,18 +41,29 @@ function App() {
         </div>
       </nav>
 
-      <main className="container py-4">
-        <Routes>
-          <Route path="/" element={<Homepage />} />
+      <main className="container py-4 mb-5">
+         <Routes>
+           <Route path="/" element={<Homepage />} />
 
-          <Route path="/customers" element={<CustomersList />} />
-          <Route path="/customers/:id" element={<CustomersForm />} />
 
-          <Route path="/cars" element={<CarsList />} />
-          <Route path="/cars/:id" element={<CarsForm />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
+           <Route path="/customers" element={<CustomersList />} />
+           <Route path="/customers/:id" element={<CustomersForm />} />
+
+
+           <Route path="/cars" element={<CarsList />} />
+           <Route path="/cars/:id" element={<CarsForm />} />
+         </Routes>
+       </main>
+     </BrowserRouter>
+     <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:lucatelinic23@gmail.com">LUCA TELINI CROZARA</a> | 4º semestre CIÊNCIAS DA COMPUTAÇÃO 2026/2
+         </p>
+       </div>
+     </footer>
+   </>
+
   );
 }
 
