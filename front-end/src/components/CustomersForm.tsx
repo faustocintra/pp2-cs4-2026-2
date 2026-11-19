@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 
@@ -56,9 +56,9 @@ const states = [
 
 // Função para interpretar e dar mensagens de erro mais
 // inteligíveis aos erros de fetch()
-async function getErrorMessage(response: Response) {
- const body = await response.json().catch(() => null)
- return body?.error || body?.message || `A requisição falhou (HTTP ${response.status}).`
+async function getErrorMessage(response: Response): Promise<string> {
+ const error = await response.json().catch(() => null) as { message?: string } | null
+ return error?.message || `A requisição falhou (HTTP ${response.status}).`
 }
 
 
@@ -118,7 +118,7 @@ export function CustomersForm() {
        })
      }
    }
-   catch (error) {
+   catch (error: unknown) {
      if (active) {
        setLoadFailed(true)
        const message = error instanceof Error ? error.message : 'Erro desconhecido.'
@@ -151,9 +151,7 @@ export function CustomersForm() {
 
  // Toda vez que o valor de um campo for alterado, esta função será chamada
  // para preencher o campo correspondente da variável de estado `customer`
- function handleFieldChange(
-   event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
- ) {
+ function handleFieldChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
    const { name, value } = event.target
 
 
@@ -162,7 +160,7 @@ export function CustomersForm() {
  }
 
 
- async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+ async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
    event.preventDefault()
 
 
@@ -218,7 +216,7 @@ export function CustomersForm() {
      window.alert('Cliente salvo com sucesso.')
      navigate('/customers') // Retorna à página do formulário
    }
-   catch (error) {
+   catch (error: unknown) {
      const message = error instanceof Error ? error.message : 'Erro desconhecido.'
      window.alert(`Não foi possível salvar o cliente. ${message}`)
    }

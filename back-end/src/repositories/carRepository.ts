@@ -8,10 +8,9 @@ import type { UpdateCarDto }
 
 export function findAll() {
   return prisma.car.findMany({
-    orderBy: [
-      { brand: "asc" },
-      { model: "asc" },
-    ],
+    orderBy: {
+      model: "asc",
+    },
   });
 }
 

@@ -62,5 +62,3 @@ jspm_packages/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
-/generated/prisma

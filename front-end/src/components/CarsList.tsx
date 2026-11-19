@@ -1,17 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router'
 import type { Car } from '../types/Car'
-
-const currency = new Intl.NumberFormat('pt-BR', {
- style: 'currency',
- currency: 'BRL',
-})
+import { Link } from 'react-router'
 
 export function CarsList() {
  const [cars, setCars] = useState<Car[]>([])
 
- // Busca a lista de veículos no back-end. O endereço do servidor vem
- // da variável de ambiente VITE_API_BASE (arquivo .env.local).
  async function fetchData() {
    const apiHost = import.meta.env.VITE_API_BASE
 
@@ -32,7 +25,7 @@ export function CarsList() {
    }
  }
 
- // Vetor de dependências vazio: executa apenas ao carregar o componente
+ // Vetor vazio: executa apenas uma vez, ao carregar o componente
  useEffect(() => {
    void fetchData()
  }, [])
@@ -46,10 +39,7 @@ export function CarsList() {
      </p>
 
      <div className="text-end mb-3">
-       <Link
-         to="/cars/new"
-         className="btn btn-outline-primary"
-       >
+       <Link to="/cars/new" className="btn btn-outline-primary">
          Novo veículo
        </Link>
      </div>
@@ -81,9 +71,12 @@ export function CarsList() {
                <td>{car.plates}</td>
                <td>{car.imported ? 'Sim' : 'Não'}</td>
                <td>
-                 {car.selling_price !== null
-                   ? currency.format(Number(car.selling_price))
-                   : 'Disponível'}
+                 {car.selling_price != null
+                   ? Number(car.selling_price).toLocaleString('pt-BR', {
+                       style: 'currency',
+                       currency: 'BRL',
+                     })
+                   : 'Não vendido'}
                </td>
                <td className="text-end">
                  <Link

@@ -7,7 +7,7 @@
 import app from '../app.js'
 import chalk from 'chalk'
 import { createServer } from 'http'
-import type { ExpressError } from '../types/error.js'
+import { ExpressError } from '../types/error.js'
 
 /**
  * Get port from environment and store in Express.

@@ -1,3 +1,13 @@
-import type { CreateCustomerDto } from './createCustomerDto.js'
-
-export interface UpdateCustomerDto extends Partial<CreateCustomerDto> {}
+export interface UpdateCustomerDto {
+  name?: string;
+  ident_document?: string;
+  birth_date?: Date | null;
+  street_name?: string;
+  house_number?: string;
+  complements?: string | null;
+  district?: string;
+  municipality?: string;
+  state?: string;
+  phone?: string;
+  email?: string;
+}

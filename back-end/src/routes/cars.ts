@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as controller
-  from "../controllers/carController.js";
+  from "../controllers/carController.ts";
 
 const router = Router();
 

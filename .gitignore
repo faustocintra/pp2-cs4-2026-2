@@ -1,6 +1,4 @@
 # Logs
-.tmp/
-/pp2-cs4-2026-2.pdf
 logs
 *.log
 npm-debug.log*
@@ -70,7 +68,6 @@ web_modules/
 # dotenv environment variable files
 .env
 .env.*
-!.env.example
 !.env.local.example
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -144,3 +141,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Generated Prisma client and local course references
+back-end/generated/
+documentacao-extraida.txt
+pp2-cs4-2026-2.pdf

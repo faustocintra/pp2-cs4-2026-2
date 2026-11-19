@@ -1,13 +1,14 @@
 {
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES2023",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*.ts", "generated/prisma/**/*.ts"]
+ "compilerOptions": {
+   "module": "ESNext",
+   "moduleResolution": "bundler",
+   "target": "ES2023",
+   "outDir": "./dist",
+   "strict": true,
+   "esModuleInterop": true,
+   "forceConsistentCasingInFileNames": true,
+   //"ignoreDeprecations": "6.0",
+   "rewriteRelativeImportExtensions": true,
+   "skipLibCheck": true
+ }
 }

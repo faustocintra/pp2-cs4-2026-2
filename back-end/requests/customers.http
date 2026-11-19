@@ -1,8 +1,5 @@
-@baseUrl = http://localhost:8888
-@customerId = 1
-
-### Inserção do primeiro cliente (roteiro de 10/09): esperado 201 Created
-POST {{baseUrl}}/customers
+### Inserção do primeiro cliente — aula de 10/09
+POST http://localhost:8888/customers
 Content-Type: application/json
 
 {
@@ -19,17 +16,5 @@ Content-Type: application/json
   "email": "mariana.pereira@example.com"
 }
 
-### Listagem ordenada por nome: esperado 200
-GET {{baseUrl}}/customers
-
-### Busca pelo ID devolvido no POST: esperado 200
-GET {{baseUrl}}/customers/{{customerId}}
-
-### Atualização parcial: esperado 200
-PUT {{baseUrl}}/customers/{{customerId}}
-Content-Type: application/json
-
-{ "house_number": "146" }
-
-### Exclusão: esperado 204, sem corpo
-DELETE {{baseUrl}}/customers/{{customerId}}
+### Verificar o registro criado
+GET http://localhost:8888/customers

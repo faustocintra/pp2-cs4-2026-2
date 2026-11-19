@@ -4,17 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch ./src/bin/server.ts",
-    "start": "node ./dist/src/bin/server.js",
-    "build": "prisma generate && rimraf dist && tsc",
+    "build": "prisma generate && tsc",
+    "start": "node dist/src/bin/server.js",
     "prestart": "npm run build",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate deploy",
+    "typecheck": "tsc --noEmit",
+    "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "test": "node --import tsx --test test/*.test.ts"
+    "test:integration": "tsx scripts/verify-crud.ts"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.9.1",
-    "@prisma/client": "^7.9.1",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "^7.10.0",
     "chalk": "^5.6.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -29,17 +29,19 @@
     "@types/express": "^5.0.5",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.10.0",
-    "@types/pg": "^8.21.0",
+    "@types/pg": "^8.23.1",
     "copyfiles": "^2.4.1",
     "eslint": "^9.39.0",
     "prettier": "^3.6.2",
-    "prisma": "^7.9.1",
+    "prisma": "7.10.0",
     "rimraf": "^6.1.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "type": "module",
   "allowScripts": {
-    "esbuild@0.28.2": true
+    "esbuild@0.28.2": true,
+    "msgpackr-extract@3.0.4": true,
+    "workerd@1.20260704.1": true
   }
 }

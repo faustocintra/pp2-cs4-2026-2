@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import type { Customer } from '../types/Customer'
 
+
 const API_BASE = import.meta.env.VITE_API_BASE
 const API_URL = `${API_BASE}/cars`
-
 const MAX_MANUFACTURE_YEAR = new Date().getFullYear() + 1
+
 
 // Inputs controlados recebem strings, inclusive os campos numéricos e opcionais.
 // A conversão para os tipos esperados pelo back-end ocorre antes da gravação.
@@ -21,23 +22,39 @@ const formDefaults = {
  customer_id: '',
 }
 
+
 // Lista fechada de cores disponíveis para os veículos.
 const colors = [
- 'Amarelo', 'Azul', 'Bege', 'Branco', 'Cinza', 'Dourado', 'Laranja',
- 'Marrom', 'Prata', 'Preto', 'Roxo', 'Verde', 'Vermelho', 'Vinho',
+ 'Amarelo',
+ 'Azul',
+ 'Bege',
+ 'Branco',
+ 'Cinza',
+ 'Dourado',
+ 'Laranja',
+ 'Marrom',
+ 'Prata',
+ 'Preto',
+ 'Roxo',
+ 'Verde',
+ 'Vermelho',
+ 'Vinho',
 ]
 
+
 // Função para interpretar e dar mensagens de erro mais
-// inteligíveis aos erros de fetch(). O back-end responde { error: '...' }.
+// inteligíveis aos erros de fetch()
 async function getErrorMessage(response: Response) {
- const body = await response.json().catch(() => null)
- return body?.error || body?.message || `A requisição falhou (HTTP ${response.status}).`
+ const error = await response.json().catch(() => null)
+ return error?.message || `A requisição falhou (HTTP ${response.status}).`
 }
+
 
 export function CarsForm() {
  const { id } = useParams()
  const navigate = useNavigate()
  const isNew = id === 'new'
+
 
  const [car, setCar] = useState({ ...formDefaults })
  const [customers, setCustomers] = useState<Customer[]>([])
@@ -45,40 +62,52 @@ export function CarsForm() {
  const [loadFailed, setLoadFailed] = useState(false)
  const [formModified, setFormModified] = useState(false)
 
+
  // Quando o formulário estiver sendo usado para alterar os dados de
- // um veículo já existente, loadData() busca esses dados no back-end
- // para que os campos já apareçam preenchidos. A lista de clientes
- // também é buscada, para preencher o campo de seleção.
+ // um veículo já existente, loadData() será chamado para buscar esses
+ // dados no back-end para que os campos já apareçam preenchidos.
+ // A lista de clientes também será buscada para preencher o campo de seleção.
  async function loadData(active: boolean) {
    setLoading(true)
    setLoadFailed(false)
    setFormModified(false)
    setCar({ ...formDefaults })
 
+
    try {
-     // A lista de clientes é necessária tanto no cadastro quanto na edição.
+     // A lista de clientes precisa ser buscada tanto no cadastro quanto
+     // na edição de um veículo.
      const customersResponse = await fetch(`${API_BASE}/customers`)
+
 
      if (!customersResponse.ok) {
        throw new Error(await getErrorMessage(customersResponse))
      }
 
+
      const customersResult: Customer[] = await customersResponse.json()
+
 
      if (active) {
        setCustomers(customersResult)
      }
 
-     // Cadastro de novo veículo: não há dados de veículo para buscar.
+
+     // Se entrou no loadData() para cadastrar um novo veículo, não há
+     // dados de veículo para buscar e a função pode terminar aqui.
      if (isNew) return
 
+
      const response = await fetch(`${API_URL}/${id}`)
+
 
      if (!response.ok) {
        throw new Error(await getErrorMessage(response))
      }
 
+
      const result = await response.json()
+
 
      if (active) {
        // Copia dos dados buscados apenas os campos que fazem parte do formulário.
@@ -107,73 +136,98 @@ export function CarsForm() {
    }
  }
 
- // Executado sempre que o parâmetro da rota mudar.
+
+ // Este useEffect() será executado sempre que o parâmetro da rota mudar.
+ // Uma mudança de rota causa alterações nas variáveis `id` e `isNew`,
+ // que são justamente aquelas monitoradas no VETOR DE DEPENDÊNCIAS.
  useEffect(() => {
    // Evita atualizar o formulário enquanto uma requisição anterior
    // ainda estiver sendo processada
    let active = true
 
-   void loadData(active)
+
+   loadData(active)
+
 
    return () => {
      active = false
    }
  }, [id, isNew]) // <~ VETOR DE DEPENDÊNCIAS
 
- // Toda vez que o valor de um campo for alterado, esta função preenche
- // o campo correspondente da variável de estado `car`.
+
+ // Toda vez que o valor de um campo for alterado, esta função será chamada
+ // para preencher o campo correspondente da variável de estado `car`.
  function handleFieldChange(
    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
  ) {
    const { name, value } = event.target
+   const fieldValue = event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
+     ? event.target.checked
+     : value
 
-   const fieldValue =
-     event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
-       ? event.target.checked
-       : value
 
    setCar(previous => ({ ...previous, [name]: fieldValue }))
    setFormModified(true)
  }
 
+
  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
    event.preventDefault()
 
+
    if (loading || loadFailed) return
+
 
    setLoading(true)
 
+
    try {
-     // Ajusta o formato de alguns campos para gravação no banco de dados
+
+
+     // Aqui, ajustamos o formato do conteúdo de alguns campos para gravação
+     // no banco de dados
      const payload = {
        ...car,
        year_manufacture: Number(car.year_manufacture),
        imported: car.imported,
-       selling_date: car.selling_date ? `${car.selling_date}T00:00:00.000Z` : null,
+       selling_date: car.selling_date
+         ? `${car.selling_date}T00:00:00.000Z`
+         : null,
        selling_price: car.selling_price ? Number(car.selling_price) : null,
        customer_id: car.customer_id ? Number(car.customer_id) : null,
      }
 
-     // Novo veículo (criação) ~> POST; veículo existente (atualização) ~> PUT
+
+     // Determinamos o método HTTP com o qual a requisição será enviada
+     // ao back-end:
+     // Novo veículo (criação) ~> POST
+     // Veículo existente (atualização) ~> PUT
      const method = isNew ? 'POST' : 'PUT'
 
-     // Novo: http://localhost:8888/cars; existente: http://localhost:8888/cars/X
+
+     // A URI invocada também muda de acordo com a situação:
+     // Novo veículo: http://localhost:8888/cars
+     // Veículo existente: http://localhost:8888/cars/X, onde X é o id do veículo
      const uri = isNew ? API_URL : `${API_URL}/${id}`
 
+
+     // Fazendo a requisição ao back-end
      const response = await fetch(uri, {
        method,
        headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify(payload),
+       body: JSON.stringify(payload)
      })
+
 
      if (!response.ok) {
        throw new Error(await getErrorMessage(response))
      }
 
+
      // Não depende de um corpo JSON na resposta de sucesso.
      setFormModified(false)
      window.alert('Veículo salvo com sucesso.')
-     navigate('/cars') // Retorna à página de listagem
+     navigate('/cars') // Retorna à página do formulário
    }
    catch (error) {
      const message = error instanceof Error ? error.message : 'Erro desconhecido.'
@@ -184,6 +238,7 @@ export function CarsForm() {
    }
  }
 
+
  function handleBackButtonClick() {
    if (formModified && !window.confirm(
      'Há informações não salvas. Deseja realmente sair?'
@@ -191,8 +246,10 @@ export function CarsForm() {
      return
    }
 
+
    navigate('/cars')
  }
+
 
  return (
    <section className="container py-4">
@@ -200,9 +257,11 @@ export function CarsForm() {
        {isNew ? 'Cadastrar novo veículo' : `Editar veículo ${id}`}
      </h1>
 
+
      {loading && (
        <p role="status">Aguarde, processando...</p>
      )}
+
 
      {loadFailed && (
        <div className="alert alert-danger" role="alert">
@@ -210,9 +269,11 @@ export function CarsForm() {
        </div>
      )}
 
+
      <form onSubmit={handleFormSubmit}>
        <fieldset disabled={loading || loadFailed}>
          <legend className="visually-hidden">Dados do veículo</legend>
+
 
          <div className="row g-3">
            <div className="col-12 col-md-6">
@@ -229,6 +290,7 @@ export function CarsForm() {
              />
            </div>
 
+
            <div className="col-12 col-md-6">
              <label htmlFor="model" className="form-label">Modelo</label>
              <input
@@ -241,6 +303,7 @@ export function CarsForm() {
                onChange={handleFieldChange}
              />
            </div>
+
 
            <div className="col-12 col-md-4">
              <label htmlFor="color" className="form-label">Cor</label>
@@ -259,6 +322,7 @@ export function CarsForm() {
              </select>
            </div>
 
+
            <div className="col-12 col-md-4">
              <label htmlFor="year_manufacture" className="form-label">
                Ano de fabricação
@@ -276,6 +340,7 @@ export function CarsForm() {
              />
            </div>
 
+
            <div className="col-12 col-md-4">
              <label htmlFor="plates" className="form-label">Placas</label>
              <input
@@ -288,6 +353,7 @@ export function CarsForm() {
                onChange={handleFieldChange}
              />
            </div>
+
 
            <div className="col-12">
              <div className="form-check">
@@ -305,6 +371,7 @@ export function CarsForm() {
              </div>
            </div>
 
+
            <div className="col-12 col-md-6">
              <label htmlFor="selling_date" className="form-label">
                Data da venda
@@ -318,6 +385,7 @@ export function CarsForm() {
                onChange={handleFieldChange}
              />
            </div>
+
 
            <div className="col-12 col-md-6">
              <label htmlFor="selling_price" className="form-label">
@@ -334,6 +402,7 @@ export function CarsForm() {
                onChange={handleFieldChange}
              />
            </div>
+
 
            <div className="col-12">
              <label htmlFor="customer_id" className="form-label">
@@ -356,10 +425,12 @@ export function CarsForm() {
            </div>
          </div>
 
+
          <button type="submit" className="btn btn-primary mt-4">
            Salvar
          </button>
        </fieldset>
+
 
        <button
          type="button"

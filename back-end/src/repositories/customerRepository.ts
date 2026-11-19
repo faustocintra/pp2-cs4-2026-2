@@ -1,23 +1,43 @@
-import { prisma } from '../database/client.js'
-import type { CreateCustomerDto } from '../dto/customer/createCustomerDto.js'
-import type { UpdateCustomerDto } from '../dto/customer/updateCustomerDto.js'
+import { prisma } from "../database/client.js";
+
+import type { CreateCustomerDto }
+  from "../dto/customer/createCustomerDto.js";
+
+import type { UpdateCustomerDto }
+  from "../dto/customer/updateCustomerDto.js";
 
 export function findAll() {
-  return prisma.customer.findMany({ orderBy: { name: 'asc' } })
+  return prisma.customer.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
 }
 
 export function findById(id: number) {
-  return prisma.customer.findUnique({ where: { id } })
+  return prisma.customer.findUnique({
+    where: { id },
+  });
 }
 
 export function create(data: CreateCustomerDto) {
-  return prisma.customer.create({ data })
+  return prisma.customer.create({
+    data,
+  });
 }
 
-export function update(id: number, data: UpdateCustomerDto) {
-  return prisma.customer.update({ where: { id }, data })
+export function update(
+  id: number,
+  data: UpdateCustomerDto
+) {
+  return prisma.customer.update({
+    where: { id },
+    data,
+  });
 }
 
 export function remove(id: number) {
-  return prisma.customer.delete({ where: { id } })
+  return prisma.customer.delete({
+    where: { id },
+  });
 }
