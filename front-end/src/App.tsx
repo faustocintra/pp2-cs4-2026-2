@@ -56,7 +56,17 @@ function App() {
 
        </Routes>
      </main>
+
+     <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:julioborgesap@gmail.com">Júlio César Borges de Andrade Peixoto</a> | 4º semestre Ciência da Computação 2026/2
+         </p>
+       </div>
+     </footer>
+
    </BrowserRouter>
+   
  )
 }
 
