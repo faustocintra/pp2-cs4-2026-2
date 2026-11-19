@@ -51,13 +51,20 @@ function App() {
 
           <Route path="/cars" element={<CarsList />} />
           <Route path="/cars/:id" element={<CarsForm />} />
-
        </Routes>
-
-
      </main>
+    <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:miguelmoura112@gmail.com">MIGUEL DE MOURA OLIVEIRA</a> | 4º semestre SUA TURMA 2026/2
+         </p>
+       </div>
+     </footer>
    </BrowserRouter>
+
+   
  )
+
 }
 
 
