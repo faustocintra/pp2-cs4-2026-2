@@ -1,11 +1,9 @@
-
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import type { Customer } from '../types/Customer'
 
 
-const API_BASE = import.meta.env.VITE_API_BASE
-console.log("API_BASE testeeee:", API_BASE);
+const API_BASE = import.meta.env.VITE_API_BASE ?? '/api'
 const API_URL = `${API_BASE}/cars`
 const MAX_MANUFACTURE_YEAR = new Date().getFullYear() + 1
 
@@ -160,7 +158,7 @@ export function CarsForm() {
  // Toda vez que o valor de um campo for alterado, esta função será chamada
  // para preencher o campo correspondente da variável de estado `car`.
  function handleFieldChange(
-   event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+   event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
  ) {
    const { name, value } = event.target
    const fieldValue = event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
@@ -173,7 +171,7 @@ export function CarsForm() {
  }
 
 
- async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+ async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
    event.preventDefault()
 
 
@@ -195,7 +193,7 @@ export function CarsForm() {
        selling_date: car.selling_date
          ? `${car.selling_date}T00:00:00.000Z`
          : null,
-       selling_price: car.selling_price ? Number(car.selling_price) : null,
+       selling_price: car.selling_price !== '' ? Number(car.selling_price) : null,
        customer_id: car.customer_id ? Number(car.customer_id) : null,
      }
 
@@ -208,8 +206,8 @@ export function CarsForm() {
 
 
      // A URI invocada também muda de acordo com a situação:
-     // Novo veículo: http://localhost:8888/cars
-     // Veículo existente: http://localhost:8888/cars/X, onde X é o id do veículo
+     // Novo veículo: /api/cars
+     // Veículo existente: /api/cars/X, onde X é o id do veículo
      const uri = isNew ? API_URL : `${API_URL}/${id}`
 
 
@@ -446,4 +444,3 @@ export function CarsForm() {
    </section>
  )
 }
-
