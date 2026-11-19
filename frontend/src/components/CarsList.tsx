@@ -1,13 +1,55 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router"
+import type { Car } from "../types/Car";
+import type { Customer } from "../types/Customer";
+import { formatMoney } from "../utils/money";
+import { formatDate } from "../utils/date";
 
 export function CarsList() {
+  const [cars, setCars] = useState<Car[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+
+  async function fetchData() {
+    const apiHost = import.meta.env.VITE_API_BASE;
+
+    try {
+      const [carsResponse, customersResponse] = await Promise.all([
+        fetch(`${apiHost}/cars`),
+        fetch(`${apiHost}/customers`)
+      ]);
+
+      if (!carsResponse.ok) {
+        throw new Error(`Erro HTTP ${carsResponse.status} ao buscar veículos`);
+      }
+
+      if (!customersResponse.ok) {
+        throw new Error(`Erro HTTP ${customersResponse.status} ao buscar clientes`);
+      }
+
+      const carsData: Car[] = await carsResponse.json();
+      const customersData: Customer[] = await customersResponse.json();
+
+      setCars(carsData);
+      setCustomers(customersData);
+    }
+    catch (error) {
+      if (error instanceof Error) {
+        window.alert('ERRO: ' + error.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const customerNames = new Map(customers.map((customer) => [customer.id, customer.name]));
+
  return (
    <>
      <h2 className="h2 mb-3">Listagem de Veículos</h2>
 
-     <p className="text-secondary">
-       A listagem de veículos aparecerá aqui.
-     </p>
+      <p className="text-secondary">Total de veículos: {cars.length}</p>
 
       <div className="text-end mb-3">
        <Link
@@ -17,6 +59,61 @@ export function CarsList() {
          Novo Veículo
        </Link>
      </div>
+
+      <div className="table-responsive">
+        <table className="table table-striped table-hover align-middle">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">Cor</th>
+              <th scope="col">Ano de fabricação</th>
+              <th scope="col">Importado</th>
+              <th scope="col">Placas</th>
+              <th scope="col">Data da venda</th>
+              <th scope="col">Preço de venda</th>
+              <th scope="col">Cliente comprador</th>
+              <th scope="col" className="text-end">Ações</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {cars.map((car) => (
+              <tr key={car.id}>
+                <td>{car.id}</td>
+                <td>{car.brand}</td>
+                <td>{car.model}</td>
+                <td>{car.color}</td>
+                <td>{car.year_manufacture}</td>
+                <td>{car.imported ? "Sim" : "Não"}</td>
+                <td>{car.plates}</td>
+                <td>{formatDate(car.selling_date)}</td>
+                <td>{formatMoney(car.selling_price)}</td>
+                <td>{car.customer_id ? customerNames.get(car.customer_id) : "N/A"}</td>
+                <td className="text-end">
+                 <Link
+                   to={`/cars/${car.id}`}
+                   className="btn btn-outline-primary"
+                   aria-label={`Editar veículo ${car.brand}`}
+                 >
+                   Editar
+                 </Link>
+               </td>
+
+              </tr>
+            ))}
+
+            {cars.length === 0 && (
+              <tr>
+                <td colSpan={11} className="text-center text-secondary">
+                  Nenhum veículo cadastrado.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
    </>
  )
 }

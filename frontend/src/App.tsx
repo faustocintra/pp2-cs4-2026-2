@@ -40,7 +40,7 @@ function App() {
 
      <main className="container py-4">
        <Routes>
-         <Route path="/" element={< HomePage />} />
+         <Route index element={< HomePage />} />
          <Route path="/customers" element={<CustomersList />} />
          <Route path="/customers/:id" element={<CustomersForm />} />
          <Route path="/cars" element={<CarsList />} />
