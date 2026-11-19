@@ -3,9 +3,7 @@ import type { Customer } from '../types/Customer'
 import { Link } from 'react-router'
 
 
-type CustomerListProps = {
- list?: Customer[]
-}
+
 
 
 export function CustomersList() {
@@ -117,9 +115,9 @@ export function CustomersList() {
                <td>{customers.state}</td>
                <td className="text-end">
                  <Link
-                   to={`/customers/${customer.id}`}
+                   to={`/customers/${customers.id}`}
                    className="btn btn-outline-primary"
-                   aria-label={`Editar cliente ${customer.name}`}
+                   aria-label={`Editar cliente ${customers.name}`}
                  >
                    Editar
                  </Link>
