@@ -70,14 +70,23 @@ function App() {
          element={<CarsForm />} />
 
          <Route path="/cars" 
-         element={<CarsList />} />
+                   element={<CarsList />} />
 
   
 
        </Routes>
      </main>
-   </BrowserRouter>
- )
+       <footer className="fixed-bottom bg-light border-top py-2 text-center">
+        <div className="container">
+          <p className="small mb-0">
+            Desenvolvido por{" "}
+            <a href="mailto:contatojuliagrezende@gmail.com">Julia Rezende</a>{" "}
+            - 4º semestre CS4 2026/2
+          </p>
+        </div>
+      </footer>
+      </BrowserRouter>
+)
 }
 
 
