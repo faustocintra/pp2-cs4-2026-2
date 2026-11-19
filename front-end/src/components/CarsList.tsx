@@ -64,6 +64,7 @@ export function CarsList() {
              <th scope="col">Importado</th>
              <th scope="col">Placas</th>
              <th scope="col">Proprietário</th>
+             <th scope="col" className="text-end">Ações</th>
            </tr>
          </thead>
          <tbody>
@@ -77,12 +78,21 @@ export function CarsList() {
                <td>{car.imported ? 'Sim' : 'Não'}</td>
                <td>{car.plates}</td>
                <td>{car.customer?.name ?? 'Não vendido'}</td>
+               <td className="text-end">
+                 <Link
+                   to={`/cars/${car.id}`}
+                   className="btn btn-outline-primary"
+                   aria-label={`Editar veículo ${car.model}`}
+                 >
+                   Editar
+                 </Link>
+               </td>
              </tr>
            ))}
 
            {cars.length === 0 && (
              <tr>
-               <td colSpan={8} className="text-center text-secondary">
+               <td colSpan={9} className="text-center text-secondary">
                  Nenhum veículo cadastrado.
                </td>
              </tr>
