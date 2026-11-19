@@ -228,7 +228,7 @@ export function CarsForm() {
      // Não depende de um corpo JSON na resposta de sucesso.
      setFormModified(false)
      window.alert('Veículo salvo com sucesso.')
-     navigate('/cars') // Retorna à página do formulário
+     navigate('/cars') // Retorna à listagem de veículos
    }
    catch (error) {
      const message = error instanceof Error ? error.message : 'Erro desconhecido.'

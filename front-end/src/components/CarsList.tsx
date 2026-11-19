@@ -76,7 +76,7 @@ export function CarsList() {
               <tr key={car.id}>
                 <td>{car.id}</td>
                 <td>
-                  {car.customer_id === null
+                  {car.customer_id == null
                     ? 'Não vendido'
                     : customers.find(customer => customer.id === car.customer_id)?.name
                       ?? 'Cliente não encontrado'}

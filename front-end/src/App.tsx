@@ -54,9 +54,19 @@ function App() {
 
        </Routes>
      </main>
-   </BrowserRouter>
- )
-}
+      <footer className="fixed-bottom bg-light border-top py-2 text-center">
+          <div className="container">
+            <p className="small mb-0">
+              Desenvolvido por{' '}
+              <a href="mailto:juliamoreira0512@gmail.com">
+                Júlia Moreira | 4º semestre Sistemas de Informação 2026/2
+              </a>
+            </p>
+          </div>
+      </footer>
 
+    </BrowserRouter>
+  )
+}
 
 export default App
