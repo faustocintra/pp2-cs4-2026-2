@@ -64,7 +64,15 @@ function App() {
           <Route path="/cars/:id" element={<CarsForm />} />
        </Routes>
      </main>
+   <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="lalete.arantes@gmail.com">Laura Mendonça Arantes</a> | 4º semestre Sistemas de Informação 2026/2
+         </p>
+       </div>
+     </footer>
    </BrowserRouter>
+
  )
 }
 
