@@ -46,8 +46,9 @@ function App() {
 
           <Route path="/customers" element={<CustomersList />} />
           <Route path="/customers/:id" element={<CustomersForm />} />
-          <Route path="/customers/cars/:id" element={<CarsForm />} />
+
           <Route path="/cars" element={<CarsList />} />
+          <Route path="/cars/:id" element={<CarsForm />} />
         </Routes>
       </main>
     </BrowserRouter>
