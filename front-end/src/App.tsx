@@ -56,7 +56,16 @@ function App() {
 
       </main>
     </BrowserRouter>
-  );
+
+    <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto:email@do.aluno">Yuri Vioto Alves</a> | 4º semestre Ciências da Computação 2026/2
+         </p>
+       </div>
+     </footer>
+     </>
+  )
 }
 
 export default App;
