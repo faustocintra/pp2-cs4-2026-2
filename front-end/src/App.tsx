@@ -56,7 +56,17 @@ function App() {
 
 
      </main>
+       <footer className="fixed-bottom bg-light border-top py-2 text-center">
+       <div className="container">
+         <p className="small mb-0">
+           Desenvolvido por <a href="mailto: isadorarequer@gmail.com">Isadora Requer Kairala</a> | 4º semestre de Ciências da Computação 2026/2
+         </p>
+       </div>
+     </footer>
+
    </BrowserRouter>
+   
+   
  )
 }
 
