@@ -1,10 +1,16 @@
 import type { Request, Response, NextFunction } from "express";
-import * as service from "../services/carService";
-import type { CreateCarDto } from "../dto/car/createCarDto";
-import type { UpdateCarDto } from "../dto/car/updateCarDto";
 
-type CarIdParams = { id: string };
+import * as service from "../services/carService.ts";
+
+import type { CreateCarDto } from "../dto/car/createCarDto.ts";
+import type { UpdateCarDto } from "../dto/car/updateCarDto.ts";
+
+type CarIdParams = {
+  id: string;
+};
+
 type CreateCarRequest = Request<Record<string, never>, unknown, CreateCarDto>;
+
 type UpdateCarRequest = Request<CarIdParams, unknown, UpdateCarDto>;
 
 export async function retrieveAll(
@@ -14,6 +20,7 @@ export async function retrieveAll(
 ): Promise<void> {
   try {
     const cars = await service.findAll();
+
     res.json(cars);
   } catch (error) {
     next(error);
@@ -27,7 +34,9 @@ export async function retrieveOne(
 ): Promise<void> {
   try {
     const id = Number(req.params.id);
+
     const car = await service.findById(id);
+
     res.json(car);
   } catch (error) {
     next(error);
@@ -41,6 +50,7 @@ export async function create(
 ): Promise<void> {
   try {
     const car = await service.create(req.body);
+
     res.status(201).json(car);
   } catch (error) {
     next(error);
@@ -54,7 +64,9 @@ export async function update(
 ): Promise<void> {
   try {
     const id = Number(req.params.id);
+
     const car = await service.update(id, req.body);
+
     res.json(car);
   } catch (error) {
     next(error);
@@ -68,7 +80,9 @@ export async function remove(
 ): Promise<void> {
   try {
     const id = Number(req.params.id);
+
     await service.remove(id);
+
     res.status(204).end();
   } catch (error) {
     next(error);

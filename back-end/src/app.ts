@@ -11,13 +11,8 @@ import cors from 'cors'
 
 const app = express()
 
-// Define origines permitidas com fallback para localhost em desenvolvimento
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',') 
-  : ['http://localhost:5173']
-
 app.use(cors({
- origin: allowedOrigins,
+ origin: process.env.ALLOWED_ORIGINS.split(','),
 }))
 
 app.use(logger('dev'))
