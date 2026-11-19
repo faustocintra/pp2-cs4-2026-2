@@ -3,6 +3,7 @@ import { Homepage } from './components/Homepage'
 import { CustomersList } from './components/CustomersList'
 import { CarsList } from './components/CarsList'
 import { CustomersForm } from './components/CustomersForm'
+import { CarsForm } from './components/CarsForm'
 
 
 function App() {
@@ -48,9 +49,11 @@ function App() {
 
 
          <Route path="/customers" element={<CustomersList />} />
+         <Route path="/customers/:id" element={<CustomersForm />} />
 
-        <Route path="/customers/:id" element={<CustomersForm />} />
+
          <Route path="/cars" element={<CarsList />} />
+         <Route path="/cars/:id" element={<CarsForm />} />
        </Routes>
      </main>
    </BrowserRouter>
@@ -59,5 +62,3 @@ function App() {
 
 
 export default App
-
- 
