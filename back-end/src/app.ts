@@ -6,7 +6,13 @@ import indexRouter from "./router/index";
 import usersRouter from "./router/users";
 import customersRouter from "./router/customers";
 
+import cors from 'cors'
+
 const app = express();
+
+app.use(cors({
+ origin: process.env.ALLOWED_ORIGINS.split(','),
+}))
 
 app.use(logger("dev"));
 app.use(json());
