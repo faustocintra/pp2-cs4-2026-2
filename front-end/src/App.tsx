@@ -15,6 +15,7 @@ function App() {
           </h1>
         </div>
       </header>
+
       <nav className="bg-light border-bottom py-2">
         <div className="container">
           <ul className="nav nav-pills">
@@ -36,7 +37,8 @@ function App() {
           </ul>
         </div>
       </nav>
-      <main className="container py-4">
+
+      <main className="container py-4 pb-5">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/customers" element={<CustomersList />} />
@@ -45,6 +47,18 @@ function App() {
           <Route path="/cars/:id" element={<CarsForm />} />
         </Routes>
       </main>
+
+      <footer className="fixed-bottom bg-light border-top py-2 text-center">
+        <div className="container">
+          <p className="small mb-0">
+            Desenvolvido por{" "}
+            <a href="mailto:italohsm.2004@gmail.com">
+              Italo Henrique Dos Santos Machado
+            </a>{" "}
+            | 4º semestre Ciência da Computação 2026/2
+          </p>
+        </div>
+      </footer>
     </BrowserRouter>
   );
 }
